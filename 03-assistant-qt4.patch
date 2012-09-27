@@ -1,0 +1,11 @@
+--- origsrc/spim/QtSpim/menu.cpp	2012-09-27 14:20:05.000000000 -0500
++++ src/spim/QtSpim/menu.cpp	2012-09-27 16:36:01.848117200 -0500
+@@ -815,7 +815,7 @@ void SpimView::help_ViewHelp()
+     process->start(QLatin1String("help/assistant"), args); // Windows install
+     if (!process->waitForStarted())
+     {
+-        process->start(QLatin1String("assistant"), args); // Default install
++        process->start(QLatin1String("assistant-qt4"), args); // Default install
+         if (!process->waitForStarted())
+         {
+             QMessageBox msgBox;

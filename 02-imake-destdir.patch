@@ -1,0 +1,19 @@
+--- origsrc/spim/xspim/Imakefile	2012-09-27 14:18:12.000000000 -0500
++++ src/spim/xspim/Imakefile	2012-09-27 16:16:23.405714200 -0500
+@@ -43,13 +43,13 @@
+ #
+ 
+ # Full path for the directory that will hold the executable files:
+-BIN_DIR = $(DESTDIR)/usr/bin
++BIN_DIR = /usr/bin
+ 
+ # Full path for the directory that will hold the exception handler:
+-EXCEPTION_DIR = $(DESTDIR)/usr/share/spim
++EXCEPTION_DIR = /usr/share/spim
+ 
+ # Full path for the directory that will hold the man files:
+-MAN_DIR = $(DESTDIR)/usr/share/man/man1
++MAN_DIR = /usr/share/man/man1
+ 
+ 
+ # If you have flex, use it instead of lex.  If you use flex, define this

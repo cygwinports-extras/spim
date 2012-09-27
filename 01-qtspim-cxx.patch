@@ -1,0 +1,10 @@
+--- origsrc/spim/QtSpim/QtSpim.pro	2012-09-27 14:20:07.000000000 -0500
++++ src/spim/QtSpim/QtSpim.pro	2012-09-27 14:55:50.864308600 -0500
+@@ -93,6 +93,7 @@ RESOURCES = windows_images.qrc\
+ win32:RC_FILE = qtspim.rc
+ 
+ 
++QMAKE_CC		= $$QMAKE_CXX
+ QMAKE_YACC		= bison
+ QMAKE_YACCFLAGS		= -d --defines=parser.tab.h --output=parser.tab.c
+ QMAKE_YACCFLAGS_MANGLE	= -p yy

@@ -1,0 +1,73 @@
+NAME="spim"
+VERSION=9.1.7
+RELEASE=1
+SVN_REV=598
+CATEGORY="System"
+SUMMARY="MIPS32 simulator"
+DESCRIPTION="Spim is a self-contained simulator that runs MIPS32 programs.
+It reads and executes assembly language programs written for this processor.
+Spim also provides a simple debugger and minimal set of operating system
+services. Spim does not execute binary (compiled) programs."
+HOMEPAGE="http://spimsimulator.sourceforge.net/"
+SVN_URI="svn://svn.code.sourceforge.net/p/spimsimulator/code"
+SVN_BRANCH=/
+SVN_MODULE=${NAME}
+inherit svn qt4-qmake
+
+PATCH_URI="01-qtspim-cxx.patch
+           02-imake-destdir.patch
+           03-assistant-qt4.patch"
+
+DISTCLEANFILES="QtSpim/parser_yacc.*"
+
+PKG_NAMES="spim qtspim" # xspim
+spim_CONTENTS="usr/bin/spim.exe usr/share/doc/spim/ usr/share/man/man1/spim.* usr/share/spim/"
+qtspim_SUMMARY="${SUMMARY} (Qt GUI)"
+qtspim_REQUIRES="qt4-devel-tools" # assistant-qt4 for Help
+qtspim_CONTENTS="usr/bin/QtSpim.exe usr/share/applications/ usr/share/doc/qtspim/
+                 usr/share/pixmaps/ usr/share/qtspim/"
+xspim_SUMMARY="${SUMMARY} (Xaw GUI)"
+xspim_REQUIRES="spim"
+xspim_CONTENTS="usr/bin/xspim.exe usr/share/doc/xspim/ usr/share/man/man1/xspim.*"
+
+src_compile() {
+	lndirs
+	cd ${B}/spim
+	cygmake
+
+#	cd ${B}/xspim
+#	xmkmf
+#	cygmake parser_yacc.h
+#	cygmake
+
+	cd ${B}/QtSpim
+	cygqmake4
+	cygmake help/qtspim.qhc
+	cygmake
+}
+
+src_install() {
+	dodir /usr/bin
+	cd ${B}/spim
+	cyginstall
+	dodoc README
+
+#	cd ${B}/xspim
+#	cyginstall
+#	docinto /xspim
+#	dodoc README
+
+	cd ${B}/QtSpim
+	dobin QtSpim.exe
+	docinto /qtspim
+	dodoc README
+	insinto /usr/share/qtspim/help
+	doins help/qtspim.{qch,qhc}
+	doicon windows_images/qtspim.png
+	make_desktop_entry QtSpim "Spim" qtspim "System;Emulator" "MIPS32 Emulator"
+
+	cd ${S}/Documentation
+	newman spim.man spim.1
+#	newman xspim.man xspim.1
+
+}
